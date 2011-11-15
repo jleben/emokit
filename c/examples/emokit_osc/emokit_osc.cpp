@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
 	FILE *input;
 	FILE *output;
-	enum headset_type type;
+	unsigned char *key;
   
 	char raw_frame[32];
 	struct epoc_frame frame;
@@ -49,17 +49,17 @@ int main(int argc, char* argv[])
 	}
   
 	if(strcmp(argv[1], "research") == 0)
-		type = RESEARCH_HEADSET;
+		key = RESEARCH_KEY;
 	else if(strcmp(argv[1], "consumer") == 0)
-		type = CONSUMER_HEADSET;
+		key = CONSUMER_KEY;
 	else if(strcmp(argv[1], "special") == 0)
-		type = SPECIAL_HEADSET;
+		key = SPECIAL_KEY;
 	else {
 		fputs("Bad headset type argument\nExpected: epocd [consumer|research|special] source [dest]\n", stderr);
 		return 1;
 	}
   
-	epoc_init(type);
+	epoc_init(key, KEY_SIZE);
 
 	d = epoc_create();
 	printf("Current epoc devices connected: %d\n", epoc_get_count(d, EPOC_VID, EPOC_PID));

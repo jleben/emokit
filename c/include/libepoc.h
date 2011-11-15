@@ -55,8 +55,6 @@ const static uint32_t EPOC_OUT_ENDPT = 0x02;
 const static uint32_t EPOC_IN_ENDPT  = 0x82;
 
 
-enum headset_type {CONSUMER_HEADSET, RESEARCH_HEADSET, SPECIAL_HEADSET};
-
 struct epoc_contact_quality {
     char F3, FC6, P7, T8, F7, F8, T7, P8, AF4, F4, AF3, O2, O1, FC5;
 };
@@ -72,7 +70,7 @@ struct epoc_frame {
 extern "C"
 {
 #endif
-EPOC_DECLSPEC int epoc_init(enum headset_type type);
+EPOC_DECLSPEC int epoc_init(unsigned char * key, int key_size);
 EPOC_DECLSPEC int epoc_deinit();
 
 EPOC_DECLSPEC int epoc_get_next_raw(unsigned char raw_frame[32], unsigned char* raw_data);
@@ -87,4 +85,14 @@ EPOC_DECLSPEC int epoc_read_data(epoc_device* dev, uint8_t* input_report);
 #ifdef __cplusplus
 };
 #endif
+
+#define KEY_SIZE 16 /* 128 bits == 16 bytes */
+
+extern unsigned char RESEARCH_KEY[];
+extern unsigned char SPECIAL_KEY[];
+extern unsigned char CONSUMER_KEY[];
+extern unsigned char CONSUMER2_KEY[];
+extern unsigned char CONSUMER3_KEY[];
+extern unsigned char CONSUMER4_KEY[];
+
 #endif //LIBEPOC_H_
