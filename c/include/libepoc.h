@@ -88,11 +88,11 @@ EPOC_DECLSPEC int epoc_read_data(epoc_device* dev, uint8_t* input_report);
 
 #define KEY_SIZE 16 /* 128 bits == 16 bytes */
 
-extern unsigned char RESEARCH_KEY[];
-extern unsigned char SPECIAL_KEY[];
-extern unsigned char CONSUMER_KEY[];
-extern unsigned char CONSUMER2_KEY[];
-extern unsigned char CONSUMER3_KEY[];
-extern unsigned char CONSUMER4_KEY[];
+extern EPOC_DECLSPEC unsigned char RESEARCH_KEY[];
+extern EPOC_DECLSPEC unsigned char SPECIAL_KEY[];
+extern EPOC_DECLSPEC unsigned char CONSUMER_KEY[];
+extern EPOC_DECLSPEC unsigned char CONSUMER2_KEY[];
+extern EPOC_DECLSPEC unsigned char CONSUMER3_KEY[];
+extern EPOC_DECLSPEC unsigned char CONSUMER4_KEY[];
 
 #endif //LIBEPOC_H_
