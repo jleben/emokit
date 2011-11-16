@@ -28,7 +28,7 @@ if (WIN32)
     endif()
 
     list(APPEND LIBEPOC_REQUIRED_LIBS hid setupapi)
-elseif()
+elseif(UNIX)
     find_package(libusb-1.0 REQUIRED)
     if(LIBUSB_1_FOUND)
         include_directories(${LIBUSB_1_INCLUDE_DIRS})
