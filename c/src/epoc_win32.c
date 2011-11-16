@@ -6,8 +6,8 @@
 
 #include "libepoc.h"
 #include <stdlib.h>
-#include <api/setupapi.h>
-#include <api/hidsdi.h>
+#include <setupapi.h>
+#include <hidsdi.h>
 #include <stdio.h>
 
 #define EPOC_USB_INTERFACE	0

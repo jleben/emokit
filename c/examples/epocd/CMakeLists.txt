@@ -4,7 +4,7 @@
 
 add_executable (epocd epocd.c)
 ADD_DEPENDENCIES(epocd epoc)
-target_link_libraries (epocd epoc ${LIBS})
+target_link_libraries (epocd epoc ${LIBEPOC_REQUIRED_LIBS})
 
 SET_TARGET_PROPERTIES(epocd PROPERTIES
 	INSTALL_RPATH_USE_LINK_PATH TRUE

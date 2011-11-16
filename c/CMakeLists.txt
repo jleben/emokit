@@ -1,10 +1,5 @@
-# The name of the project is "LIBORO". CMakeLists files in this project can
-# refer to the root source directory of the project as ${LIBORO_SOURCE_DIR} and
-# to the root binary directory of the project as ${LIBORO_BINARY_DIR}.
-cmake_minimum_required (VERSION 2.6)
-PROJECT(libepoc)
-
-#set(LIBS mcrypt)
+cmake_minimum_required (VERSION 2.8)
+PROJECT(EMOKIT)
 
 SET(BUILD_SHARED_LIBS true)
 
@@ -14,26 +9,37 @@ SET(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
 
 FIND_PACKAGE(Mcrypt REQUIRED)
 INCLUDE_DIRECTORIES(${Mcrypt_INCLUDE_DIR})
+LIST(APPEND LIBEPOC_REQUIRED_LIBS ${Mcrypt_LIBS})
 
-IF(WIN32)
-  SET(WDK_PATH CACHE PATH "Path to WDK Installation")
-  INCLUDE_DIRECTORIES(${WDK_PATH}/inc/api ${WDK_PATH}/inc/crt ${WDK_PATH}/inc)
-  LINK_DIRECTORIES(${WDK_PATH}/lib/wxp/i386)
-  LIST(APPEND LIBEPOC_REQUIRED_LIBS hid setupapi)
-ELSEIF(UNIX)
-  FIND_PACKAGE(libusb-1.0 REQUIRED)
-  IF(LIBUSB_1_FOUND)
-    INCLUDE_DIRECTORIES(${LIBUSB_1_INCLUDE_DIRS})
-    LIST(APPEND LIBEPOC_REQUIRED_LIBS ${LIBUSB_1_LIBRARIES})
-  ENDIF(LIBUSB_1_FOUND)
-ENDIF(WIN32)
+if (WIN32)
+    set(WDK_PATH CACHE PATH "Path to Windows Driver Kit installation")
+    if(WDK_PATH)
+        set(WDDK_INCLUDE_DIRS ${WDK_PATH}/inc/api ${WDK_PATH}/inc/crt ${WDK_PATH}/inc)
+        link_directories(${WDK_PATH}/lib/wxp/i386)
+    else()
+        find_path(WDDK_INCLUDE_DIRS hidsdi.h)
+        if (NOT WDDK_INCLUDE_DIRS)
+            message( WARNING
+                "No path to Windows Driver Kit has been set, "
+                "and Driver Device Kit headers do not seem to be available. "
+                "Please set WDK_PATH variable to point to a top WDK directory."
+            )
+         endif()
+    endif()
 
-SET(LIBS ${Mcrypt_LIBS} ${LIBUSB_1_LIBRARIES})
+    list(APPEND LIBEPOC_REQUIRED_LIBS hid setupapi)
+elseif()
+    find_package(libusb-1.0 REQUIRED)
+    if(LIBUSB_1_FOUND)
+        include_directories(${LIBUSB_1_INCLUDE_DIRS})
+        list(APPEND LIBEPOC_REQUIRED_LIBS ${LIBUSB_1_LIBRARIES})
+    endif(LIBUSB_1_FOUND)
+endif()
 
-MESSAGE(STATUS ${LIBS})
-include_directories(${libepoc_SOURCE_DIR}/include /usr/local/include)
-LINK_DIRECTORIES(/usr/local/lib)
-set(LIBEPOC_HEADERS include/libepoc.h)
+message(STATUS "libepoc required libraries: ${LIBEPOC_REQUIRED_LIBS}")
+
+include_directories(${EMOKIT_SOURCE_DIR}/include)
+set(LIBEPOC_HEADERS ${EMOKIT_SOURCE_DIR}/include/libepoc.h)
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(examples/epocd)
