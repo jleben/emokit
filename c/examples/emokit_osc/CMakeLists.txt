@@ -2,7 +2,7 @@ FIND_PACKAGE(liblo REQUIRED)
 
 ADD_EXECUTABLE(emokit_osc emokit_osc.cpp)
 
-TARGET_LINK_LIBRARIES(emokit_osc epoc ${LIBLO_LIBRARY} ${LIBEPOC_REQUIRED_LIBS})
+TARGET_LINK_LIBRARIES(emokit_osc epoc ${LIBLO_LIBRARY})
 
 if (WIN32)
 	# link libs needed by liblo:
