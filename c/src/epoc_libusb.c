@@ -6,6 +6,16 @@
 
 #include "libepoc.h"
 #include <stdlib.h>
+#include <libusb.h>
+
+struct epoc_device {
+	struct libusb_context* _context;
+	struct libusb_device_handle* _device;
+	struct libusb_transfer* _in_transfer;
+	struct libusb_transfer* _out_transfer;
+	int _is_open;
+	int _is_inited;
+};
 
 #define EPOC_USB_INTERFACE	0
 

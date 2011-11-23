@@ -17,33 +17,22 @@
 #ifndef LIBEPOC_H_
 #define LIBEPOC_H_
 
+#include <stdio.h>
+#include <stdint.h>
+
 #define E_NPUTIL_DRIVER_ERROR -1
 #define E_NPUTIL_NOT_INITED -2
 #define E_NPUTIL_NOT_OPENED -3
 
-#include <stdio.h>
-#include <stdint.h>
 #if !defined(WIN32)
-#define EPOC_DECLSPEC
-#include "libusb-1.0/libusb.h"
-typedef struct {
-	struct libusb_context* _context;
-	struct libusb_device_handle* _device;
-	struct libusb_transfer* _in_transfer;
-	struct libusb_transfer* _out_transfer;
-	int _is_open;
-	int _is_inited;
-} epoc_device;
+# define EPOC_DECLSPEC
 #else
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#define EPOC_DECLSPEC __declspec(dllexport)
-typedef struct {
-	HANDLE _dev;
-	int _is_open;
-	int _is_inited;
-} epoc_device;
+# define WIN32_LEAN_AND_MEAN
+# define EPOC_DECLSPEC __declspec(dllexport)
 #endif
+
+typedef struct epoc_device epoc_device;
+
 /// Vendor ID for all omron health devices
 const static uint32_t EPOC_VID = 0x21a1;
 /// Product ID for all omron health devices

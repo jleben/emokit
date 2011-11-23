@@ -6,9 +6,16 @@
 
 #include "libepoc.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <setupapi.h>
 #include <hidsdi.h>
-#include <stdio.h>
+#include <windows.h>
+
+struct epoc_device {
+	HANDLE _dev;
+	int _is_open;
+	int _is_inited;
+};
 
 #define EPOC_USB_INTERFACE	0
 
