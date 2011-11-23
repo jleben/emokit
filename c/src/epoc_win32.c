@@ -7,9 +7,9 @@
 #include "libepoc.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <windows.h>
 #include <setupapi.h>
 #include <hidsdi.h>
-#include <windows.h>
 
 struct epoc_device {
 	HANDLE _dev;
