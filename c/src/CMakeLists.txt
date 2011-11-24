@@ -2,6 +2,12 @@
 ##              libepoc                ###
 ##########################################
 
+if (BUILD_SHARED_LIBS)
+    message (STATUS "Building libepoc as shared library.")
+else()
+    message (STATUS "Building libepoc as static library.")
+endif()
+
 find_package(Mcrypt REQUIRED)
 list (APPEND LIBEPOC_LIBS ${Mcrypt_LIBS})
 include_directories(${Mcrypt_INCLUDE_DIR})
