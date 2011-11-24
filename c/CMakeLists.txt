@@ -6,10 +6,16 @@ option ( EMOKIT_USE_STATIC_LIBS
     FALSE
 )
 
-option ( BUILD_SHARED_LIBS
-    "Whether the libraries built by this project will be shared or static"
-    TRUE
+option( EMOKIT_BUILD_STATIC_LIBS
+    "Whether the libraries built by this project will be static or shared"
+    FALSE
 )
+
+if( EMOKIT_BUILD_STATIC_LIBS )
+    set( BUILD_SHARED_LIBS FALSE)
+else()
+    set( BUILD_SHARED_LIBS TRUE)
+endif()
 
 if(CMAKE_COMPILER_IS_GNUCC)
     if(EMOKIT_USE_STATIC_LIBS)

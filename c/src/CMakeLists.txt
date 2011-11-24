@@ -2,10 +2,10 @@
 ##              libepoc                ###
 ##########################################
 
-if (BUILD_SHARED_LIBS)
-    message (STATUS "Building libepoc as shared library.")
-else()
+if (EMOKIT_BUILD_STATIC_LIBS)
     message (STATUS "Building libepoc as static library.")
+else()
+    message (STATUS "Building libepoc as shared library.")
 endif()
 
 find_package(Mcrypt REQUIRED)
